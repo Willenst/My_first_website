@@ -1,3 +1,9 @@
+<?php
+	if (!isset($_COOKIE['User'])) {
+        header("Location: index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -10,11 +16,14 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <div class="logo">
-        </div>
+    <div class="col-10">
+            <div class="logo">
+            </div>
+            
         <div class="nav_bar">
             <div class="nav_text">Обо мне
             </div>
+        </div>
         </div>
         <div class="container">
             <div class="row">
@@ -23,12 +32,12 @@
                         Раточка Вячеслав Леонидович, ведущий специалист по информационной опаности. Дайте мне Burp и 3 литра кофе и вы лишитесь 
                         не только доступности, но и конфидиенциальности с целостностью.
                 </div>
-                <div class="col-4">
+                <div class="col-2">
                     <div class="row my_photo">
                     </div>
                     <div class="row"><p class="my_photo_title">Раточка В.Л.</p></div>
                 </div>
-                <div class="col-3">Не является публичной офертой, взлом сугубо в рамках легального договора.</div>
+                <div class="col-12">Не является публичной офертой, взлом сугубо в рамках легального договора.</div>
             </div>
         </div>
         <div>
@@ -37,11 +46,46 @@
                     <div class="button_js_col-12">
                         <button id="myButton">Click me!</button>
                         <p id="demo"></p>
+                        <script type="text/javascript" src="js/sc1.js"></script>
                     </div>
                 </div>
             </div>
+            <div class="container">
+    <div class="row">
+        <div class="col-11">
+            <h1 class="hello">
+                Ну здарова, <?php echo $_COOKIE['User']; ?>
+            </h1>
+            <form method="POST" action="profile.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="title" placeholder="Озаглавь че нить!"> 
+                </div>
+                <textarea name="text" class="form-control" rows="10" placeholder="Напиши че нить!"></textarea>
+                <button type="submit" class="btn btn-danger" name="submit">Coхранить че нить!</button>
+            </form>
         </div>
-        <script type="text/javascript" src="js/sc1.js"></script>
-    </body>
+    </div>
+</div>
+
+
+</div>
+</body>
 </html>
 
+<?php
+require_once('db.php');
+
+$link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
+
+if (isset($_POST['submit'])) {
+    $title = $_POST['title'];
+    $main_text = $_POST['text'];
+
+
+    if (!$title || !$main_text) die ("Заполните все поля");
+
+    $sql = "INSERT INTO posts (title, main_text) VALUES ('$title', '$main_text')";
+
+    if (!mysqli_query($link, $sql)) die ("Не удалось добавить пост");
+}
+?>

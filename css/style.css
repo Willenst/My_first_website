@@ -3,6 +3,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: #ddd;
 }
+
 .nav_bar {
     display: flex;
     align-items: center;
@@ -19,19 +20,16 @@ body {
 .row {
 }
 .col-8 {
-    font-size: 20px;
-    font-weight: bold;
+}
+.col-12 {
 }
 .col-4 {
 }
 .col-3 {
-    font-size: 10px;
 }
 .header1{
-    font-size: 40px;
 }
 .col-1 {
-    text-align: center;
 }
 .logo {
     background: url(../image/hackerman.webp) no-repeat center center;
