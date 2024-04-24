@@ -53,14 +53,16 @@
             <div class="container">
     <div class="row">
         <div class="col-11">
+            <!--форма под посты-->
             <h1 class="hello">
                 Ну здарова, <?php echo $_COOKIE['User']; ?>
             </h1>
-            <form method="POST" action="profile.php">
+            <form class="form_align" method="POST" action="profile.php" enctype="multipart/form-data" name="upload"> 
                 <div class="form-group">
                     <input type="text" class="form-control" name="title" placeholder="Озаглавь че нить!"> 
                 </div>
                 <textarea name="text" class="form-control" rows="10" placeholder="Напиши че нить!"></textarea>
+                <input type="file" name="file" /><br>
                 <button type="submit" class="btn btn-danger" name="submit">Coхранить че нить!</button>
             </form>
         </div>
@@ -87,5 +89,20 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO posts (title, main_text) VALUES ('$title', '$main_text')";
 
     if (!mysqli_query($link, $sql)) die ("Не удалось добавить пост");
+    if(!empty($_FILES["file"]))
+    {
+        if (((@$_FILES["file"]["type"] == "image/gif") || (@$_FILES["file"]["type"] == "image/jpeg")
+        || (@$_FILES["file"]["type"] == "image/jpg") || (@$_FILES["file"]["type"] == "image/pjpeg")
+        || (@$_FILES["file"]["type"] == "image/x-png") || (@$_FILES["file"]["type"] == "image/png"))
+        && (@$_FILES["file"]["size"] < 1024000))
+        {
+            move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
+            echo "Load in:  " . "upload/" . $_FILES["file"]["name"];
+        }
+        else
+        {
+            echo "upload failed!";
+        }
+    }
 }
 ?>
