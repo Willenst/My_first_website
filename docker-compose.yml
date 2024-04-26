@@ -24,7 +24,7 @@ services:
     image: mariadb
     environment:
       MYSQL_DATABASE: first
-      MYSQL_USER: kali
+      MYSQL_USER: root
       MYSQL_PASSWORD: kali
       MYSQL_ROOT_PASSWORD: kali
     volumes:
